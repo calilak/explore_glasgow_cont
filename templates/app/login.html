@@ -1,0 +1,24 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title_block %}
+    Login
+{% endblock %}
+
+{% block additional_styles %}
+    <link rel="stylesheet" href="{% static 'styling/login.css' %}">
+{% endblock %}
+
+{% block body_block %}
+<div class="form-container">
+    <h1>Login to Explore Glasgow</h1>
+    <form id="login_form" method="post" action="{% url 'app:login' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="submit-container">
+            <input type="submit" value="Submit" />
+        </div>
+    </form>
+    <p>Don't have an account? <a href="{% url 'app:register' %}">Register <span style="color:#8d5d5d">here</span></a>.</p>
+</div>
+{% endblock %}

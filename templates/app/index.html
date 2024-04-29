@@ -1,0 +1,56 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title_block %}
+    Home
+{% endblock %}
+
+{% block additional_styles %}
+    <link rel="stylesheet" href="{% static 'styling/index.css' %}">
+{% endblock %}
+
+{% block additional_js %}
+  <script src="{% static 'javascript/index.js' %}"></script>
+{% endblock %}
+
+{% block body_block %}
+
+<h1>Explore Glasgow</h1>
+<section>
+  <div>
+    <div class="form-fields">
+      <label for="new-plan-title">Plan Title</label>
+      <input type="text" id="new-plan-title" name="new-plan-title" autocomplete="off">
+      <label for="new-plan-date">Date</label>
+      <input type="date" id="new-plan-date" name="new-plan-date">
+    </div>
+    <button onClick="addNewPlan()">Add New Plan</button>
+  </div>
+</section>
+
+<div class="top-plans">
+  <h2>Top 10 Plans</h2>
+  <div id="slideshow" class="slideshow-container">
+    {% for plan in top_plans %}
+      <div class="slide fade">
+        <div class="number-text">{{ forloop.counter }} / {{ top_plans|length }}</div>
+        <div class="slide-content">
+          <h3>{{ plan.title }}</h3>
+          <p><a href="#" class="username-link">@{{ plan.user.username }}</a></p>
+          <a href="#">View Full Plan</a> <!-- Adjust URL accordingly -->
+        </div>
+      </div>
+    {% endfor %}
+    <a class="prev">&#10094;</a>
+    <a class="next">&#10095;</a>
+  </div>
+  <div class="view-all-plans">
+    <a href="{% url 'app:browsePlans' %}">View All Plans</a> <!-- Adjust URL name -->
+  </div>
+</div>
+
+<footer>
+<!--actual plans yet to be added -->
+</footer>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title_block %}
+    Places
+{% endblock %}
+
+{% block additional_styles %}
+<link rel="stylesheet" href="{% static 'styling/listings.css' %}">
+{% endblock %}
+
+{% block additional_js %}
+<script src = "{% static 'javascript/places.js' %}"></script>
+{% endblock %}
+
+{% block body_block %}
+<h1>Places in Glasgow</h1><br>
+
+<div class="grid-container">
+  {% block topbar %}
+    <div class="header">
+      <div id="category-buttons">
+        <button class="category-button" style="color: #7a0000;"><strong>All</strong></button>
+        {% for category in categories %}
+        <!--List every defined Category object-->
+          <button class="category-button" style="color:#000;">{{ category.name }}</button>
+        {% endfor %}
+      </div>
+    </div>
+  {% endblock %}
+  
+  <div class="left" style="background-color:#bbb">
+    <form action="">
+      <input type="text" placeholder="Search places..." id="searchbar"><br>
+      <!--Checkbox for every defined Tag object-->
+      {% for tag in tags %}
+      <div style="margin-bottom: 10px;">
+        <input type="checkbox" id="{{ tag.id }}" name="{{ tag.name }}" value="{{ tag.name }}">
+        <label for="{{ tag.id }}">{{ tag.name }}</label><br>
+      </div>
+      {% endfor %}
+      <input onclick="" type="submit" value="Submit">
+    </form>
+  </div>
+
+  <div class="right" style="background-color:#eee">
+    <div id="places-container">
+      {{ places_html | safe }}
+    </div>
+  </div>
+</div>
+
+{% endblock %}
